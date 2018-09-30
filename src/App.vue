@@ -9,6 +9,11 @@
       <button class="button-primary" type="submit">Search</button>
     </form>
 
+    <img v-if="loading" id="loadingImage" src="https://i.imgur.com/LVHmLnb.gif">
+    <section class="images">
+      <img v-for="image in images" :key="image.id" :src="image.src.large2x">
+    </section>
+
   </div>
 </template>
 
@@ -22,14 +27,18 @@ export default {
       title: 'Vue Image Search',
       searchTerm: '',
       images: [],
+      loading: false,
     };
   },
   methods: {
     formSubmitted() {
+      this.loading = true;
+      this.images = [];
       Api.search(this.searchTerm)
         .then((images) => {
           // console.log(images);
           this.images = images;
+          this.loading = false;
         });
     },
   },
@@ -40,5 +49,13 @@ export default {
 body {
   width: 80%;
   margin: 2em auto 0 auto;
+}
+
+img {
+  width: 100%;
+}
+
+.images {
+  column-count: 3;
 }
 </style>
