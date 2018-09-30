@@ -2,9 +2,10 @@
   <div id='app'>
     <h1>{{title}}</h1>
 
-    <form>
+    <form @submit.prevent="formSubmitted()">
       <label for="searchTerm">Search Term</label>
-      <input class="u-full-width" type="text" id="searchTerm" name="searchTerm">
+      <input v-model="searchTerm" class="u-full-width"
+      type="text" id="searchTerm" name="searchTerm">
       <button class="button-primary" type="submit">Search</button>
     </form>
 
@@ -12,12 +13,25 @@
 </template>
 
 <script>
+import Api from './Api';
+
 export default {
   name: 'app',
   data() {
     return {
       title: 'Vue Image Search',
+      searchTerm: '',
+      images: [],
     };
+  },
+  methods: {
+    formSubmitted() {
+      Api.search(this.searchTerm)
+        .then((images) => {
+          // console.log(images);
+          this.images = images;
+        });
+    },
   },
 };
 </script>
