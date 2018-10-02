@@ -1,5 +1,7 @@
 # vue-image-search
 
+An image search app to practice using Vue.js
+
 ## Project setup
 ```
 npm install

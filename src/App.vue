@@ -10,8 +10,18 @@
     </form>
 
     <img v-if="loading" id="loadingImage" src="https://i.imgur.com/LVHmLnb.gif">
-    <section class="images">
+    <!-- <section class="images">
       <img v-for="image in images" :key="image.id" :src="image.src.large2x">
+    </section> -->
+    <section class="images">
+      <!-- <embed v-for="image in images" :key="image.id"
+      :src="image.video_files[0].link" type="video/mp4"/> -->
+
+      <video v-for="image in images" :key="image.id" width="320" height="240" controls>
+  <source :src="image.video_files[0].link" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
     </section>
 
   </div>
